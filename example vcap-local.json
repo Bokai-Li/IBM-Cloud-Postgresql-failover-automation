@@ -1,9 +1,0 @@
-{
-    "services":{
-        "databases-for-postgresql":[
-            {
-                "credentials": <input your db services credentials here>
-            }
-        ]
-    }
-}
