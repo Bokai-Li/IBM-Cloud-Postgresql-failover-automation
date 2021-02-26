@@ -3,6 +3,9 @@ $(document).ready(function() {
   function reload() {
     $('.hidden').fadeOut();
     $('displayOutput').empty();
+  $.get('/dbid', function(data) {
+        $('#connectionInfo').html("Connected to: " + data)
+      });
     $.get( '/words', function(data) {
       console.log("showing", data);
 

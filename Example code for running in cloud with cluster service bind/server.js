@@ -63,18 +63,6 @@ assert(!util.isUndefined(credentials), "Must be bound to IBM Kubernetes Cluster"
 let postgresconn = credentials.connection.postgres;
 let caCert = new Buffer.from(postgresconn.certificate.certificate_base64, 'base64').toString();
 let connectionString = postgresconn.composed[0];
-//console.log(connectionString)
-//console.log("\n"+caCert)
-
-//primary
-//
-//let connectionString = `";
-//
-//let caCert = fs.readFileSync('d5290bfc-d8bb-11e9-9337-9249512c40bd');
-
-//replica
-//let connectionString =  "postgres://$admin:$FailOver-for-aa-DR-password@@c7778283-66ba-4add-84e9-99c7346740cf.2adb0220806343e3ae11df79c89b377f.databases.appdomain.cloud:31129/ibmclouddb?sslmode=verify-full";
-//let caCert = fs.readFileSync('replica-certificate');
 
 // set up a new client using our config details
 let client = new pg.Client({ connectionString: connectionString,
@@ -166,3 +154,7 @@ app.get("/words", function(request, response) {
 app.listen(port, function() {
     console.log("Server is listening on port " + port);
 });
+
+app.get("/dbid", function (req, res) {
+  res.send(credentials.instance_administration_api.instance_id)
+})

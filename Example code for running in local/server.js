@@ -87,7 +87,6 @@ let caCert2 = new Buffer.from(postgresconn2.certificate.certificate_base64, 'bas
 let connectionString = postgresconn.composed[0];
 let connectionString2 = postgresconn2.composed[0];
 
-
 // set up a new client using our config details
 let client = new pg.Client({ connectionString: connectionString,
 ssl: {
@@ -190,3 +189,8 @@ app.get("/words", function(request, response) {
 app.listen(port, function() {
     console.log("Server is listening on port " + port);
 });
+
+
+app.get("/dbid", function (req, res) {
+  res.send(credentials.instance_administration_api.instance_id)
+})

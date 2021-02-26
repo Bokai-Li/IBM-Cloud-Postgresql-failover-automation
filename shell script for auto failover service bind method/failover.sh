@@ -30,6 +30,7 @@ fi
 #set cluster config
 ibmcloud ks cluster config --cluster $cluster
 kubectl config current-context
+
 #retrieve new DB instance binding (read-only replica)
 newBinding=$(kubectl get secret $newDB -o jsonpath='{.data.binding}')
 #replace old DB instance binding (failed primary) with new

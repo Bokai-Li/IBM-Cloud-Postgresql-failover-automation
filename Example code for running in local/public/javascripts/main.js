@@ -1,6 +1,9 @@
 $(document).ready(function() {
 
   function reload() {
+    $.get('/dbid', function(data) {
+      $('#connectionInfo').html("Connected to: " + data)
+    });
     $('.hidden').fadeOut();
     $('displayOutput').empty();
     $.get( '/words', function(data) {
