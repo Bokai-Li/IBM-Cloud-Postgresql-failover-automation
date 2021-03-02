@@ -1,5 +1,5 @@
-# IBMCloud-postgresql-DiasterRecovery-FailOver
-This repo demonstrates how to automate the process of reconnecting to the IBM Cloud PostgreSQL Databases replica instance when the primary instance is down. This is designed and tested to run locally only and requires you to set up one replica DB instance with the primary.
+# Instruction
+This folder has resource that demonstrates how to automate the process of reconnecting to the IBM Cloud PostgreSQL Databases replica instance when the primary instance is down. This is designed and tested to run locally only and requires you to set up one replica DB instance with the primary.
 
 ## Setting up service credentials
 Make sure to create service credentials for the two DB instances, both primary and replica, from the cloud console. You can do so from the "service credentials" tab. Then create two files called vcap-local.json and vcap-local-replica.json. Copy your primary service credentials in the vcap-local.json and your replica service credentials in vcap-local-replica.json. The header is provided in the example-vcap-local file. You need to copy your service credentials in the credential field.
