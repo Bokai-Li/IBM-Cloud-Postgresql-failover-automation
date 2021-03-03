@@ -36,3 +36,12 @@ cloud.ibm.com/docs/databases-for-postgresql?topic=databases-for-postgresql-read-
 1. jq - used to parse JSON
 * /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" 
 * brew install jq
+
+#### Service Binding 
+* ibmcloud ks cluster service bind --cluster <cluster_name_or_ID> --namespace <namespace> --service <service_instance_name>
+
+#### Getting Binding Secret Name
+* kubectl get secrets 
+
+#### Getting Service Key ID 
+* ibmcloud resource service-keys [ --instance-id ID | --instance-name NAME | --alias-id ID | --alias-name NAME ]
