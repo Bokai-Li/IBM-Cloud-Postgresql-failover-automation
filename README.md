@@ -12,6 +12,11 @@ The setup environment for automatic failover is to configure a replica Postgresq
 
 cloud.ibm.com/docs/databases-for-postgresql?topic=databases-for-postgresql-read-only-replicas
 
+### Installing Dependencies 
+1. jq - used to parse JSON
+* /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" 
+* brew install jq
+
 ## Failover.sh
 ### requirement:
 1. Create one service key for each db instance (primary and replica)
@@ -35,10 +40,9 @@ cloud.ibm.com/docs/databases-for-postgresql?topic=databases-for-postgresql-read-
 3.  -n new DB instance binding secret name (read-only replica)
 4. -a app name that you specified in the deployment file
 
-### Installing Dependencies 
-1. jq - used to parse JSON
-* /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" 
-* brew install jq
+
+### Running Script 
+* ./Failover-2-secrets.sh -c [Cluster Name] -o [Primary Service Binding Name] -n [Secondary Service Binding Name] -a [App Name]
 
 #### Service Binding 
 * ibmcloud ks cluster service bind --cluster <cluster_name_or_ID> --namespace <namespace> --service <service_instance_name>
