@@ -34,5 +34,5 @@ cloud.ibm.com/docs/databases-for-postgresql?topic=databases-for-postgresql-read-
 
 ### Installing Dependencies 
 1. jq - used to parse JSON
-# /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" 
-# brew install jq
+* /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" 
+* brew install jq
