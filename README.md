@@ -22,6 +22,9 @@ cloud.ibm.com/docs/databases-for-postgresql?topic=databases-for-postgresql-read-
 3. -k service Key ID for the instance you want to failover to
 4. -a app name that you specified in the deployment file
 
+### Running Script 
+* ./failover.sh -c [Cluster Name] -b [Primary Service Binding] - k [Service Key ID] - a [App Name]
+
 ## Failover-2-secrets.sh
 ### requirement:
 1. do service binding with both primary and replica instance so that two secrets are created with your kubernetes cluster.
