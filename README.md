@@ -25,8 +25,14 @@ cloud.ibm.com/docs/databases-for-postgresql?topic=databases-for-postgresql-read-
 ## Failover-2-secrets.sh
 ### requirement:
 1. do service binding with both primary and replica instance so that two secrets are created with your kubernetes cluster.
+
 ### input:
 1. -c Cluster name
 2. -o old DB instance binding secret name (failed primary)
 3.  -n new DB instance binding secret name (read-only replica)
 4. -a app name that you specified in the deployment file
+
+### Installing Dependencies 
+1. jq - used to parse JSON
+# /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" 
+# brew install jq
