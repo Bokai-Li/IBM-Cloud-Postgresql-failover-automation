@@ -1,5 +1,5 @@
 #!/bin/sh
-while getopts "c:b:i:j:k:l:a:" opt; do
+while getopts "k:n:r:m:d:l:" opt; do
   case $opt in
     k) primaryKey=$OPTARG;;
     n) replicaName=$OPTARG;;

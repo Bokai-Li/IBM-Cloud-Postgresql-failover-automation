@@ -36,7 +36,7 @@ ibmcloud ks cluster config --cluster $cluster
 kubectl config current-context
 
 # create primary service key
-ibmcloud resource service-key-create $primaryKey --instance-name $primaryKey
+ibmcloud resource service-key-create $primaryKey --instance-name $primary
 
 # connect to db and restart pods
 #retrieve service key from DB instance
