@@ -45,7 +45,7 @@ cloud.ibm.com/docs/databases-for-postgresql?topic=databases-for-postgresql-read-
 * ./Failover-2-secrets.sh -c [Cluster Name] -o [Primary Service Binding Name] -n [Secondary Service Binding Name] -a [App Name]
 
 #### Service Binding 
-* ibmcloud ks cluster service bind --cluster <cluster_name_or_ID> --namespace <namespace> --service <service_instance_name>
+* ibmcloud ks cluster service bind --cluster <cluster_name_or_ID> --namespace < namespace > --service <service_instance_name>
 
 #### Getting Binding Secret Name
 * kubectl get secrets 
