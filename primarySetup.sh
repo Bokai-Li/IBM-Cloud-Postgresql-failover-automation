@@ -23,7 +23,7 @@ if [ "$primary" == "" ]; then
     exit 1
 fi
 if [ "$primaryKey" == "" ]; then
-    echo 'Option -k <primary service key name> is missing' >&2
+    echo 'Option -k <primary service credentials name> is missing' >&2
     exit 1
 fi
 if [ "$appName" == "" ]; then

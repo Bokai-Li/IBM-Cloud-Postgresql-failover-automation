@@ -1,18 +1,18 @@
 #!/bin/sh
-while getopts "k:n:r:m:d:l:" opt; do
+while getopts "c:n:r:m:d:k:" opt; do
   case $opt in
-    k) primaryKey=$OPTARG;;
+    c) primaryKey=$OPTARG;;
     n) replicaName=$OPTARG;;
     r) region=$OPTARG;;
     m) memoryAllocation=$OPTARG;;
     d) diskAllocation=$OPTARG;;
-    l) replicaKey=$OPTARG;;
+    k) replicaKey=$OPTARG;;
     *) echo 'invalid flag' >&2
        exit 1
   esac
 done
 if [ "$primaryKey" == "" ]; then
-    echo 'Option -j <primary key name> is missing' >&2
+    echo 'Option -c <primary service credentials name> is missing' >&2
     exit 1
 fi
 if [ "$replicaName" == "" ]; then
@@ -24,7 +24,15 @@ if [ "$region" == "" ]; then
     exit 1
 fi
 if [ "$replicaKey" == "" ]; then
-    echo 'Option -l <replica key name> is missing' >&2
+    echo 'Option -k <replica service credentials name> is missing' >&2
+    exit 1
+fi
+if [ "$memoryAllocation" == "" ]; then
+    echo 'Option -m <memory allocation> is missing' >&2
+    exit 1
+fi
+if [ "$diskAllocation" == "" ]; then
+    echo 'Option -d <disk allocation> is missing' >&2
     exit 1
 fi
 
@@ -39,9 +47,6 @@ rm jsonObject.json
 ibmcloud resource service-instance-create $replicaName databases-for-postgresql standard $region \
 -p \ '{
   "remote_leader_id": '$crnID',
-  "members_memory_allocation_mb": "2048",
-  "members_disk_allocation_mb": "10240"
+  "members_memory_allocation_mb": "'$memoryAllocation'",
+  "members_disk_allocation_mb": "'$diskAllocation'"
 }'
-
-# create primary service key
-ibmcloud resource service-key-create $replicaKey --instance-name $replicaName
