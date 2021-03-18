@@ -1,57 +1,115 @@
+
 # IBM Cloud Postgresql failover automation
-This repo demostrate how to set up a postgresql database instance on IBM Cloud and include a shell script that automatically failover from primary instance to the replica instance when primary is down.
 
-# Setup
-Primary PostgreSQL instance in Dallas
-- Has a service credential
-Read-only PostgreSQL instance in Washington DC
-Has a service credential
-Kubernetes Cluster to connect frontend with PostgreSQL Database
-Connect with secret (service-binding)
+This repo demostrate how to set up a **cross-region** postgresql database service on IBM Cloud with the ability to automate failover from primary instance to the replica instance when primary is down.
+  
 
+## Example Setup
 
-# Failover automation shell Scripts
-The setup environment for automatic failover is to configure a replica Postgresql instance for the primary instance. Here is how to configure Read-only Replicas:
+1. Primary PostgreSQL instance in Dallas
+-- Has a service credential
 
-cloud.ibm.com/docs/databases-for-postgresql?topic=databases-for-postgresql-read-only-replicas
+2. Read-only PostgreSQL instance in Washington DC
+-- Has a service credential
 
-### Installing Dependencies 
+3. Kubernetes Cluster to connect frontend with PostgreSQL Database
+-- Connect with secret (service-binding, see "cloud" folder)
+  
+
+## Installing Dependencies
+
 1. jq - used to parse JSON
-* /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" 
+
+* /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
 * brew install jq
 
+ ## Shell Script:
+ 1. failover.sh: Failover from primary to replica
+-- leader goes down and binding must be patched to connect to the replica  
+
+2. promotion.sh: Replica promotion
+-- in order to gain write privileges for the application  
+
+3. primarySetup.sh: Primary setup
+-- updating the service credentials so app can operate on new leader  
+
+4. replicaCreate.sh: Replica create
+-- sets up a new replica for the leader that was just created  
+
+5. serviceCredCreate.sh: Creating service credential replica
+-- so that the app can be bound to the new replica
+
+## Example usage    
+./failover.sh -c Bokai-DB-Cluster-Test -b binding-postgresql-primary-bokai-aa -k replica-bokai-aa-credentials -a icdpostgres-app
+
+./promotion.sh -d aa-replica-bokai
+
+./primarySetup.sh -c Bokai-DB-Cluster-Test -b binding-postgresql-primary-bokai-aa -i aa-wdc-bokai -k wdc-primary -a icdpostgres-app
+
+./replicaCreate.sh -c wdc-primary -n aa-dallas-bokai -r us-south -m 2048 -d 10240 -k dallas-replica
+
+./serviceKeyCreate.sh -k credential-name -i aa-dallas-bokai
+
 ## Failover.sh
-### requirement:
-1. Create one service key for each db instance (primary and replica)
 
-### input:
+
 1. -c Cluster name
+
 2. -b binding (secret) name that you used in the deployment file
-3. -k service Key ID for the instance you want to failover to
+
+3. -k service credentials ID for the instance you want to failover to
+
 4. -a app name that you specified in the deployment file
 
-### Running Script 
-* ./failover.sh -c [Cluster Name] -b [Primary Service Binding] - k [Service Key ID] - a [App Name]
 
-## Failover-2-secrets.sh
-### requirement:
-1. do service binding with both primary and replica instance so that two secrets are created with your kubernetes cluster.
 
-### input:
+## promotion.sh
+
+1. -d deployment name
+
+  
+## primarySetup.sh
+
 1. -c Cluster name
-2. -o old DB instance binding secret name (failed primary)
-3.  -n new DB instance binding secret name (read-only replica)
-4. -a app name that you specified in the deployment file
 
+2. -b binding (secret) name that you used in the deployment file
 
-### Running Script 
-* ./Failover-2-secrets.sh -c [Cluster Name] -o [Primary Service Binding Name] -n [Secondary Service Binding Name] -a [App Name]
+3. -i primary DB instance name
+4. -k primary service credential name
 
-#### Service Binding 
+5. -a app name that you specified in the deployment file
+
+## replicaCreate.sh
+
+1. -c primary service credential name
+
+2. -b binding (secret) name that you used in the deployment file
+
+3. -n new replica name
+4. -r region that you want your replica to be in
+5. -m members memory allocation (mb) for replica
+6. -d members disk allocation (mb) for replica
+7. -k the name for a new replica credential
+## serviceKeyCreate.sh
+
+1. -k new service credential name
+2. -i instance name
+  
+## Extra:
+
+#### Service Binding
+
 * ibmcloud ks cluster service bind --cluster <cluster_name_or_ID> --namespace < namespace > --service <service_instance_name>
 
-#### Getting Binding Secret Name
-* kubectl get secrets 
+  
 
-#### Getting Service Key ID 
+#### Getting Binding Secret Name
+
+* kubectl get secrets
+
+
+
+#### Getting Service Key ID
+
 * ibmcloud resource service-keys [ --instance-id ID | --instance-name NAME | --alias-id ID | --alias-name NAME ]
