@@ -7,13 +7,13 @@ This repo demostrate how to set up a **cross-region** postgresql database servic
 ## Example Setup
 
 1. Primary PostgreSQL instance in Dallas
-    -- Has a service credential
+    - Has a service credential
 
 2. Read-only PostgreSQL instance in Washington DC
-    -- Has a service credential
+    - Has a service credential
 
 3. Kubernetes Cluster to connect frontend with PostgreSQL Database
-    -- Connect with secret (service-binding, see "cloud" folder)
+    - Connect with secret (service-binding, see "cloud" folder)
   
 
 ## Installing Dependencies
