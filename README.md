@@ -26,19 +26,19 @@ This repo demostrate how to set up a **cross-region** postgresql database servic
 
  ## Shell Script:
  1. failover.sh: Failover from primary to replica
-    -- leader goes down and binding must be patched to connect to the replica  
+    - leader goes down and binding must be patched to connect to the replica  
 
 2. promotion.sh: Replica promotion
-    -- in order to gain write privileges for the application  
+    - in order to gain write privileges for the application  
 
 3. primarySetup.sh: Primary setup
-    -- updating the service credentials so app can operate on new leader  
+    - updating the service credentials so app can operate on new leader  
 
 4. replicaCreate.sh: Replica create
-    -- sets up a new replica for the leader that was just created  
+    - sets up a new replica for the leader that was just created  
 
 5. serviceCredCreate.sh: Creating service credential replica
-    -- so that the app can be bound to the new replica
+    - so that the app can be bound to the new replica
 
 ## Example usage    
 ./failover.sh -c Bokai-DB-Cluster-Test -b binding-postgresql-primary-bokai-aa -k replica-bokai-aa-credentials -a icdpostgres-app
