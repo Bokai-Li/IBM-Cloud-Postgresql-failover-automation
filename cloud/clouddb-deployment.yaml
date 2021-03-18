@@ -15,13 +15,13 @@ spec:
     spec:
       containers:
       - name: cloudpostgres-nodejs-app
-        image: "us.icr.io/aapg/icdpg" # Edit me
+        image: "us.icr.io/aapg/icdpg"
         imagePullPolicy: Always
         env:
         - name: BINDING
           valueFrom:
             secretKeyRef:
-              name: binding-postgresql-primary-bokai-aa  # Edit me
+              name: binding-postgresql-primary-bokai-aa 
               key: binding
 ---
 apiVersion: v1

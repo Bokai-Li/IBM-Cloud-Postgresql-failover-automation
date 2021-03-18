@@ -1,0 +1,9 @@
+./failover.sh -c Bokai-DB-Cluster-Test -b binding-postgresql-primary-bokai-aa -k replica-bokai-aa-credentials -a icdpostgres-app
+
+./promotion.sh -d aa-replica-bokai
+
+./primarySetup.sh -c Bokai-DB-Cluster-Test -b binding-postgresql-primary-bokai-aa -i aa-wdc-bokai -k wdc-primary -a icdpostgres-app
+
+./replicaCreate.sh -c wdc-primary -n aa-dallas-bokai -r us-south -m 2048 -d 10240 -k dallas-replica
+
+./serviceKeyCreate.sh -k credential-name -i aa-dallas-bokai
