@@ -98,6 +98,9 @@ This repo demostrate how to set up a **cross-region** postgresql database servic
   
 ## Extra:
 
+#### Create service credentials
+* ./serviceKeyCreate.sh -k [new credential name] -i [db instance name]
+
 #### Service Binding
 
 * ibmcloud ks cluster service bind --cluster <cluster_name_or_ID> --namespace < namespace > --service <service_instance_name>
