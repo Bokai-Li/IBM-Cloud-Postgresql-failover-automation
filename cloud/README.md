@@ -52,6 +52,10 @@ The following instruction shows you how to connect to an IBM Cloud Databases for
       Choose the location and resource group that you want to set up your cluster in. Select the cluster type that you want to use. This example only requires the free plan which comes with one worker node. However, if you want to use private endpoints to connect to Kubernetes applications, you'll need to upgrade to the paid Kubernetes plan.
 
       Once a cluster is provisioned, you'll be given a list of steps to follow to access your cluster and set the environment variables under the _Access_ tab. There, you will also be able to verify that your deployment is provisioned and running normally.
+      
+      ```shell
+      ibmcloud ks cluster config --cluster <cluster_name>
+      ```
 
 8. Make sure you are targeting the correct IBM Cloud resource group of your IBM Cloud Kubernetes Service.
 
@@ -72,7 +76,7 @@ The following instruction shows you how to connect to an IBM Cloud Databases for
 10. Add the IBM Cloud Databases for PostgreSQL service to your cluster.
 
       ```shell
-      ibmcloud ks cluster service bind <your_cluster_name> default example-psql
+      ibmcloud ks cluster service bind --cluster <your_cluster_name> --namespace default --service example-psql
       ```
 
       **Note**: If your database uses both public and private endpoints, your public endpoint will be used by default. Therefore, if you want to select the private endpoint, first you will need to create a [service key](https://cloud.ibm.com/docs/cli/reference/ibmcloud?topic=cloud-cli-ibmcloud_commands_resource#ibmcloud_resource_service_key_create) for your database so Kubernetes can use it when binding to the database. You can set up a service key, for example, that we'll call `example-private-key`  using the command:
@@ -150,7 +154,7 @@ The following instruction shows you how to connect to an IBM Cloud Databases for
 17. Get the IP for the application.
 
     ```shell
-    ibmcloud ks workers <cluster_name>
+    ibmcloud ks workers --cluster <cluster_name>
     ```
 
     The result will be something like:
