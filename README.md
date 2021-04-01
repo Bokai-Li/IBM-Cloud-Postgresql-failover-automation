@@ -82,15 +82,12 @@ This repo demostrate how to set up a **cross-region** postgresql database servic
 
 ## replicaCreate.sh
 
-1. -c primary service credential name
-
-2. -b binding (secret) name that you used in the deployment file
-
-3. -n new replica name
-4. -r region that you want your replica to be in
-5. -m members memory allocation (mb) for replica
-6. -d members disk allocation (mb) for replica
-7. -k the name for a new replica credential
+1. -c service credential name for the primary instance
+2. -n new replica name
+3. -r region that you want your replica to be in
+4. -m members memory allocation (mb) for replica
+5. -d members disk allocation (mb) for replica
+6. -k the name for a new replica credential
 ## serviceKeyCreate.sh
 
 1. -k new service credential name
